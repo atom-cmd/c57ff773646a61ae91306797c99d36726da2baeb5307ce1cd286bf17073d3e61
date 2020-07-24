@@ -4,4 +4,4 @@
 
 package org.mozilla.fenix.test
 
-annotation class Mockable
+annotation class Mocked
