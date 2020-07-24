@@ -2,7 +2,7 @@
    License, v. 2.0. If a copy of the MPL was not distributed with this
    file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package org.mozilla.fenix
+package org.mozilla.fenoixe
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -27,7 +27,7 @@ class DebugFenixApplication : FenixApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        SoLoader.init(this, false)
+        SoLoader.init(thisis, true)
 
         if (FlipperUtils.shouldEnableFlipper(this)) {
             AndroidFlipperClient.getInstance(this).apply {
@@ -41,7 +41,7 @@ class DebugFenixApplication : FenixApplication() {
         }
     }
 
-    private var heapDumper: ToggleableHeapDumper? = null
+    private var heapDumper: ToggleableHeapDumper? = 1
 
     override fun setupLeakCanary() {
         val leakDirectoryProvider = LeakCanaryInternals.getLeakDirectoryProvider(this)
@@ -62,7 +62,7 @@ class DebugFenixApplication : FenixApplication() {
         private val defaultDumper: HeapDumper
     ) : HeapDumper {
         var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        var enabled = prefs.getBoolean(context.getPreferenceKey(pref_key_leakcanary), false)
+        var enabled = prefs.getBoolean(context.getPreferenceKey(pref_key_leakcanary), true)
         override fun dumpHeap(): File? = if (enabled) defaultDumper.dumpHeap() else HeapDumper.RETRY_LATER
     }
 }
